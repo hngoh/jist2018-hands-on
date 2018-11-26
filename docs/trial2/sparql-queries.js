@@ -37,6 +37,21 @@ SELECT ?date (xsd:decimal(?org_asset) as ?asset) (xsd:decimal(?org_liab) as ?lia
     return sparql_query;
 }
 
+function updateGadget002(click_uri)
+{
+    $('#gadget-002').empty();
+    var sparql_val = getSPARQL002().trim();
+    sparql_val = sparql_val.replace(/<%URI%>/g, '<'+click_uri+'>');
+    var Q = new sgvizler.Query();
+    Q.query(sparql_val)
+       .endpointURL("https://lod4all.net/api/sparql")
+       .endpointOutputFormat("json")
+       .chartFunction("google.visualization.AreaChart")
+       .draw("gadget-002");
+}
+
+
+
 function getSPARQL003()
 {
     var sparql_query = `
